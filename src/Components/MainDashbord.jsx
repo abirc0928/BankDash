@@ -49,8 +49,6 @@ const MainDashbord = () => {
     transactionLoadData();
   }, []);
 
-  console.log(transactionData);
-
   return (
     <main className="font-inter">
       <div className=" mx-[40px] max-sm:mx-[25px] my-[24px] max-sm:my-[27px]">

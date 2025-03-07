@@ -2,12 +2,15 @@ import React, { createContext, useState } from "react";
 import { Header } from "./Components/Header"
 import MainDashbord from "./Components/MainDashbord"
 import { Sidebar } from "./Components/Sidebar"
-const UserContext = createContext();
+
+const SidebarContext = createContext();
+
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  console.log(isSidebarOpen)
   return (
     <>
-    <UserContext.Provider value={(isSidebarOpen, setIsSidebarOpen)}>
+    <SidebarContext.Provider value={{ isSidebarOpen, setIsSidebarOpen }}>
       <div className="flex bg-[#EFF3F9] font-inter">
         <Sidebar />
         <div className="flex-1">
@@ -15,9 +18,10 @@ function App() {
           <MainDashbord />
         </div>
       </div>
-      </UserContext.Provider>
+      </SidebarContext.Provider>
     </>
   )
 }
 
 export default App
+export {SidebarContext}

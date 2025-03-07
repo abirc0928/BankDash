@@ -1,37 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { LuBellDot } from "react-icons/lu";
 import { CiSearch } from "react-icons/ci";
 import { IoMenu } from "react-icons/io5";
+import { SidebarContext } from "../App";
 
 export const Header = () => {
   const [isFocused, setIsFocused] = useState(false);
-  
+  const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext);
+
   return (
     <header className="bg-white h-auto w-full font-inter p-4">
       <div className="flex flex-wrap justify-between items-center gap-4">
         {/* Left Section */}
         <div className="max-lg:block hidden text-[#343C6A]">
-          <IoMenu className="w-[40px] h-[40px]" />
+          <IoMenu
+            className="w-[40px] h-[40px]"
+            onClick={() => setIsSidebarOpen((prevState) => !prevState)}
+          />
         </div>
-        
-        <h2 className="text-[#343C6A] text-[28px] font-[600]">
-          Overview
-        </h2>
+
+        <h2 className="text-[#343C6A] text-[28px] font-[600]">Overview</h2>
 
         <div className="pr-4 max-lg:block hidden">
-            <img
-              className="rounded-full w-13 h-13"
-              src="./profile_img.png"
-              alt="Profile"
-            />
-          </div>
+          <img
+            className="rounded-full w-13 h-13"
+            src="./profile_img.png"
+            alt="Profile"
+          />
+        </div>
 
         {/* Right Section */}
         <div className="flex gap-4 items-center flex-wrap max-lg:w-full">
           {/* Search Bar */}
-          <div 
+          <div
             className={`flex items-center justify-center w-[255px] h-[50px] bg-[#F5F7FA] rounded-full gap-2 transition-all border px-[30px] ${
               isFocused ? "border-sky-700" : "border-transparent"
             } max-lg:w-full`}
