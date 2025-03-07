@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const myaxios = axios.create({
-    baseURL: "http://inertia-pos.manirul.xyz/api",
+    baseURL: "//inertia-pos.manirul.xyz/api",
     headers: {
         "Content-Type": "application/json",
     },
