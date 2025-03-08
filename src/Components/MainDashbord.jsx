@@ -6,10 +6,12 @@ import MyCard from "./MyCard";
 import RecentTransaction from "./RecentTransaction";
 import QuickTransfer from "./QuickTransfer";
 import BalanceHistory from "./BalanceHistory";
+
 const MainDashbord = () => {
-  const [cardData, setCardData] = useState({});
-  const [transactionData, setTransactionDdata] = useState({});
+  const [cardData, setCardData] = useState([]);
+  const [transactionData, setTransactionData] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [showAll, setShowAll] = useState(false); // State to toggle visibility
 
   useEffect(() => {
     const handleResize = () => {
@@ -19,13 +21,13 @@ const MainDashbord = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   // Function to load data from API
   const cardLoadData = () => {
     myaxios
       .get("/card-list")
       .then((response) => {
-        const data = response.data; // Extracting 'data' object
-        setCardData(data);
+        setCardData(response.data.data || []);
       })
       .catch((error) => {
         console.log(error);
@@ -36,8 +38,7 @@ const MainDashbord = () => {
     myaxios
       .get("/recent-transactions-list")
       .then((response) => {
-        const data = response.data; // Extracting 'data' object
-        setTransactionDdata(data);
+        setTransactionData(response.data.data || []);
       })
       .catch((error) => {
         console.log(error);
@@ -51,9 +52,9 @@ const MainDashbord = () => {
 
   return (
     <main className="font-inter">
-      <div className=" mx-[40px] max-sm:mx-[25px] my-[24px] max-sm:my-[27px]">
+      <div className="mx-[40px] max-sm:mx-[25px] my-[24px] max-sm:my-[27px]">
         <div className="grid grid-cols-3 gap-[30px]">
-          <div className="max-lg:col-span-3 col-span-2 ">
+          <div className="max-lg:col-span-3 col-span-2">
             <div className="flex justify-between mb-[20px] items-center">
               <h1
                 className="text-[#343C6A] text-[22px] font-semibold"
@@ -61,37 +62,38 @@ const MainDashbord = () => {
               >
                 My Cards
               </h1>
-              <h1 className="text-[#343C6A] text-[17px] font-[600] text-base">
-                See All
-              </h1>
+              {cardData.length > 2 && (
+                <button
+                  className="text-[#343C6A] text-[17px] font-[600] text-base cursor-pointer"
+                  onClick={() => setShowAll(!showAll)}
+                >
+                  {showAll ? "Show Less" : "See All"}
+                </button>
+              )}
             </div>
 
             <div className="grid max-md:grid-cols-1 grid-cols-2 gap-[30px] font-lato">
-              {cardData?.data?.length > 0 ? (
-                cardData.data
-                  .slice(0, isMobile ? cardData.data.length : 2) // Show all if mobile, otherwise show 2
-                  .map((item, index) => (
-                    <MyCard key={index} item={item} index={index} />
-                  ))
+              {cardData.length > 0 ? (
+                cardData
+                  .slice(0, showAll ? cardData.length : 2) // Toggle between all or 2 items
+                  .map((item, index) => <MyCard key={index} index={index} item={item} />)
               ) : (
                 <p>Loading...</p>
               )}
             </div>
           </div>
-          <div className="max-lg:col-span-3 col-span-1 ">
+
+          <div className="max-lg:col-span-3 col-span-1">
             <h1
               className="text-[#343C6A] text-[22px] font-semibold mb-[20px]"
               style={{ textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
             >
-              Recent Transaction
+              Recent Transactions
             </h1>
-            <div
-              className="h-[235px] bg-[#FFFFFF] rounded-[25px]  py-[24px] max-sm:py-[20px] px-[26px] max-sm:px-[18px] font-inter 
-              "
-            >
-              {transactionData?.data?.length > 0 ? (
-                transactionData.data.map((item, index) => (
-                  <RecentTransaction key={index} item={item} index={index} />
+            <div className="h-[235px] bg-[#FFFFFF] rounded-[25px] py-[24px] px-[26px]">
+              {transactionData.length > 0 ? (
+                transactionData.map((item, index) => (
+                  <RecentTransaction key={index} item={item} />
                 ))
               ) : (
                 <p>Loading...</p>
@@ -112,7 +114,7 @@ const MainDashbord = () => {
               <WeeklyChartShow />
             </div>
           </div>
-          <div className="flex flex-col max-lg:col-span-3 ">
+          <div className="flex flex-col max-lg:col-span-3">
             <h1
               className="text-[#343C6A] text-[22px] font-semibold my-[20px]"
               style={{ textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
@@ -125,7 +127,7 @@ const MainDashbord = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-8 gap-[30px] ">
+        <div className="grid grid-cols-8 gap-[30px]">
           <div className="col-span-3 max-lg:col-span-8 flex flex-col">
             <h1
               className="text-[#343C6A] text-[22px] font-semibold my-[20px]"
@@ -137,7 +139,7 @@ const MainDashbord = () => {
               <QuickTransfer />
             </div>
           </div>
-          <div className="col-span-5 max-lg:col-span-8 flex flex-colflex flex-col">
+          <div className="col-span-5 max-lg:col-span-8 flex flex-col">
             <h1
               className="text-[#343C6A] text-[22px] font-semibold my-[20px]"
               style={{ textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
@@ -155,6 +157,3 @@ const MainDashbord = () => {
 };
 
 export default MainDashbord;
-
-// [0,240, 330,780,210,580,220]
-
