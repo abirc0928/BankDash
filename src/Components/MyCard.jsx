@@ -24,7 +24,7 @@ const MyCard = ({ item, index }) => {
               Balance
             </small>
             <h1 className="text-[20px] max-sm:text-[16px] font-[600]">
-              ${item.balance}
+              ${item.balance.toLocaleString()}
             </h1>
           </div>
           <div>
@@ -42,7 +42,7 @@ const MyCard = ({ item, index }) => {
               CARD HOLDER
             </small>
             <h1 className="text-[15px] max-sm:text-[13px] font-[600]">
-              ${item.name}
+              {item.name}
             </h1>
           </div>
           <div>

@@ -72,7 +72,7 @@ const MainDashbord = () => {
               )}
             </div>
 
-            <div className="grid max-md:grid-cols-1 grid-cols-2 gap-[30px] font-lato">
+            <div className="grid max-md:grid-cols-1 grid-cols-2 gap-[30px] font-lato transform transition-all duration-500 ease-in-out">
               {cardData.length > 0 ? (
                 cardData
                   .slice(0, showAll ? cardData.length : 2) // Toggle between all or 2 items
