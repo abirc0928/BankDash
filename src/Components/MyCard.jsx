@@ -5,7 +5,7 @@ const MyCard = ({ item, index }) => {
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const [year, month] = dateString.split("-");
-    return `${year.slice(-2)}/${month}`;
+    return `${month}/${year.slice(-2)}`;
   };
 
   console.log(item.validity);
