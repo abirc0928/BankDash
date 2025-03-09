@@ -5,7 +5,13 @@ const MyCard = ({ item, index }) => {
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const [year, month] = dateString.split("-");
-    return `${month}/${year.slice(-2)}`;
+    return `${month}/${year.slice(2)}`;
+  };
+
+  const cardNumberFormate = (cardNumber) => {
+    if (!cardNumber) return "";
+    const cardStr = cardNumber.toString();
+    return cardStr.substring(0, 2) + "*******" + cardStr.substring(9);
   };
 
   console.log(item.validity);
@@ -64,7 +70,7 @@ const MyCard = ({ item, index }) => {
         } `}
       >
         <h1 className="text-[22px] max-sm:text-[15px] font-[600]">
-          {item.card_number}
+          {cardNumberFormate(item.card_number)}
         </h1>
         {index % 2 === 0 ? (
           <img
