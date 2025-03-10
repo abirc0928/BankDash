@@ -1,6 +1,6 @@
 # Bank Dashboard - API Integration & Data Visualization
 ## Live Demo
-[Inventory Shop](https://bankdashlandingpage.netlify.app/)
+[BaskDash](https://bankdashlandingpage.netlify.app/)
 ## Overview
 
 The **Bank Dashboard** is a real-time financial monitoring system that integrates with banking APIs. It leverages the **ApexCharts React** library to deliver interactive and dynamic data visualizations, helping users track financial performance effectively.
