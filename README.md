@@ -14,5 +14,5 @@ The **Bank Dashboard** is a real-time financial monitoring system that integrate
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-username/bank-dashboard.git
-   cd bank-dashboard
+   git clone https://github.com/abirc0928/BankDash.git
+   cd BankDash
